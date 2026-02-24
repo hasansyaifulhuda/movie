@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>MovieBox - Nonton Film Streaming Gratis</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    
+    <!-- Meta tags for PWA -->
+    <meta name="theme-color" content="#141414">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MovieBox">
+</head>
+<body>
+    <!-- ========== LOADING SCREEN ========== -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <p>Loading MovieBox...</p>
+    </div>
+
+    <!-- ========== ERROR MODAL ========== -->
+    <div class="error-modal" id="errorModal">
+        <div class="error-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Oops! Error Nih</h3>
+            <p id="errorMessage">Something went wrong</p>
+            <button class="error-close" onclick="closeModal()">Tutup</button>
+        </div>
+    </div>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-film"></i>
+                    <span>MovieBox</span>
+                </div>
+                
+                <!-- Desktop Navigation Links -->
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" data-page="home">Home</a>
+                    <a href="#" class="nav-link" data-page="movies">Movies</a>
+                    <a href="#" class="nav-link" data-page="series">Series</a>
+                    <a href="#" class="nav-link" data-page="trending">Trending</a>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <!-- Search Box -->
+                <div class="search-box" id="searchBox">
+                    <i class="fas fa-search search-icon" id="searchIcon"></i>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Cari film atau series...">
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" class="mobile-link active" data-page="home">Home</a>
+            <a href="#" class="mobile-link" data-page="movies">Movies</a>
+            <a href="#" class="mobile-link" data-page="series">Series</a>
+            <a href="#" class="mobile-link" data-page="trending">Trending</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+
+        <!-- ===== HOME PAGE (Default) ===== -->
+        <div class="page active" id="homePage">
+            <!-- Hero Slider Section -->
+            <section class="hero-section" id="heroSection">
+                <div class="hero-slider" id="heroSlider">
+                    <!-- Slides akan diisi oleh JavaScript -->
+                </div>
+                <div class="hero-controls">
+                    <button class="hero-prev" onclick="slideTo(currentSlide - 1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="hero-next" onclick="slideTo(currentSlide + 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="hero-indicators" id="heroIndicators">
+                    <!-- Indicators diisi JS -->
+                </div>
+            </section>
+
+            <!-- Trending Movies Section -->
+            <section class="movie-section" id="trendingSection">
+                <div class="section-header">
+                    <h2 class="section-title">🔥 Trending Movies</h2>
+                    <a href="#" class="view-all" data-page="trending">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="movie-grid horizontal-scroll" id="trendingGrid">
+                    <!-- Grid diisi JS -->
+                </div>
+            </section>
+
+            <!-- Latest Movies Section -->
+            <section class="movie-section" id="latestSection">
+                <div class="section-header">
+                    <h2 class="section-title">🆕 Latest Releases</h2>
+                    <a href="#" class="view-all" data-page="movies">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="movie-grid horizontal-scroll" id="latestGrid">
+                    <!-- Grid diisi JS -->
+                </div>
+            </section>
+
+            <!-- Series Section -->
+            <section class="movie-section" id="seriesSection">
+                <div class="section-header">
+                    <h2 class="section-title">📺 Popular Series</h2>
+                    <a href="#" class="view-all" data-page="series">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="movie-grid horizontal-scroll" id="seriesGrid">
+                    <!-- Grid diisi JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== SEARCH RESULTS PAGE ===== -->
+        <div class="page" id="searchPage">
+            <div class="page-header">
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Hasil Pencarian: "<span id="searchQuery"></span>"</h2>
+            </div>
+            
+            <div class="movie-grid" id="searchGrid"></div>
+            
+            <div class="pagination" id="searchPagination">
+                <button class="page-btn prev" id="searchPrevPage" onclick="changeSearchPage('prev')">
+                    <i class="fas fa-chevron-left"></i> Prev
+                </button>
+                <span class="page-info" id="searchPageInfo">Page 1 of 1</span>
+                <button class="page-btn next" id="searchNextPage" onclick="changeSearchPage('next')">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== DETAIL PAGE ===== -->
+        <div class="page" id="detailPage">
+            <div class="detail-backdrop" id="detailBackdrop"></div>
+            
+            <div class="page-header detail-header">
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2 id="detailTitle">Detail</h2>
+            </div>
+            
+            <div class="detail-content" id="detailContent">
+                <div class="detail-poster">
+                    <img src="" alt="" id="detailPoster">
+                </div>
+                
+                <div class="detail-info">
+                    <h1 id="detailTitleLarge"></h1>
+                    
+                    <div class="detail-meta">
+                        <span class="detail-year" id="detailYear"></span>
+                        <span class="detail-rating" id="detailRating">
+                            <i class="fas fa-star"></i> <span></span>
+                        </span>
+                        <span class="detail-duration" id="detailDuration"></span>
+                        <span class="detail-genre" id="detailGenre"></span>
+                    </div>
+                    
+                    <p class="detail-description" id="detailDescription"></p>
+                    
+                    <div class="detail-buttons">
+                        <button class="watch-btn" id="watchNowBtn">
+                            <i class="fas fa-play"></i> Watch Now
+                        </button>
+                    </div>
+                    
+                    <!-- Episodes Section (untuk series) -->
+                    <div class="episodes-section" id="episodesSection" style="display: none;">
+                        <h3 class="episodes-title">Episodes</h3>
+                        <div class="episodes-grid" id="episodesGrid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== WATCH PAGE ===== -->
+        <div class="page" id="watchPage">
+            <div class="page-header watch-header">
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2 id="watchTitle">Now Playing</h2>
+            </div>
+            
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            
+            <div class="server-section">
+                <h3 class="server-title">Pilih Server</h3>
+                <div class="server-list" id="serverList"></div>
+            </div>
+            
+            <div class="download-section" id="downloadSection">
+                <h3 class="download-title">Download Links</h3>
+                <div class="download-list" id="downloadList"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    
+    <!-- Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registered!', reg))
+                    .catch(err => console.log('Service Worker error:', err));
+            });
+        }
+    </script>
+</body>
+</html>
