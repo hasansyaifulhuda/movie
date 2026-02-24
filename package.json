@@ -1,42 +1,8 @@
 {
   "name": "moviebox-clone",
   "version": "1.0.0",
-  "description": "MovieBox website clone with API and PWA frontend ala Netflix - Nonton film streaming gratis!",
-  "main": "api/index.js",
   "scripts": {
-    "start": "node api/index.js",
-    "dev": "nodemon api/index.js",
-    "vercel-build": "echo 'Build complete for Vercel deployment'",
-    "build": "echo 'No build required'"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "axios": "^1.6.2",
-    "cheerio": "^1.0.0-rc.12",
-    "cors": "^2.8.5"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
-  },
-  "engines": {
-    "node": ">=18.x"
-  },
-  "keywords": [
-    "movie",
-    "streaming",
-    "netflix-clone",
-    "pwa",
-    "scraper",
-    "themoviebox"
-  ],
-  "author": "MovieBox Team",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/username/moviebox-clone"
-  },
-  "bugs": {
-    "url": "https://github.com/username/moviebox-clone/issues"
-  },
-  "homepage": "https://moviebox-clone.vercel.app"
+    "dev": "node api/index.js",
+    "vercel-build": "echo 'Build OK'"
+  }
 }
