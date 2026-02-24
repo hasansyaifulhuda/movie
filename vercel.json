@@ -25,8 +25,8 @@
       "source": "/api/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
       ]
     },
     {
@@ -34,33 +34,8 @@
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
       ]
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/public/$1"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/home",
-      "destination": "/",
-      "permanent": true
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "regions": ["sin1", "iad1"],
-  "functions": {
-    "api/index.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
